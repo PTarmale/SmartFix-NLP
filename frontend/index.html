@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartFix NLP 2.0</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            min-height: 70px;
+            background: #111827;
+            color: white;
+            padding: 12px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+        }
+
+        nav h2 {
+            color: #60a5fa;
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 16px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: calc(100vh - 70px);
+            background: #111827;
+            color: white;
+            padding: 80px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-label {
+            color: #60a5fa;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            max-width: 900px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #d1d5db;
+            font-size: 18px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            width: fit-content;
+            margin-top: 30px;
+            padding: 15px 25px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .hero-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* GENERAL */
+
+        section {
+            min-height: 100vh;
+            padding: 90px 8%;
+            scroll-margin-top: 75px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #6b7280;
+        }
+
+        /* FEATURES */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* HOW IT WORKS */
+
+        #how-it-works {
+            background: white;
+        }
+
+        .steps {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 15px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* COMMON BOX */
+
+        .analyzer-box {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .analyzer-box h2 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .analyzer-box > p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 130px;
+            padding: 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+        }
+
+        .btn {
+            margin-top: 15px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .sample-buttons {
+            margin-top: 15px;
+        }
+
+        .sample-buttons button {
+            margin: 4px;
+            padding: 8px 12px;
+            border: 1px solid #2563eb;
+            background: white;
+            color: #2563eb;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .sample-buttons button:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ANALYZER */
+
+        #analyzer {
+            background: #eef4ff;
+        }
+
+        /* RESULT */
+
+        .result {
+            margin-top: 25px;
+            padding: 25px;
+            background: #f8fafc;
+            border-left: 5px solid #2563eb;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result h3 {
+            margin-bottom: 15px;
+        }
+
+        .result p {
+            margin: 10px 0;
+        }
+
+        .confidence {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .high {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-open {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-progress {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* SIMILARITY */
+
+        #similarity {
+            background: white;
+        }
+
+        /* DASHBOARD */
+
+        #dashboard {
+            background: #eef4ff;
+        }
+
+        .stats {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+
+        .stat h3 {
+            font-size: 32px;
+            color: #2563eb;
+        }
+
+        .stat p {
+            color: #6b7280;
+        }
+
+        .dashboard-grid {
+            max-width: 1100px;
+            margin: 35px auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .history-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+
+        .history-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .analytics-item {
+            margin-bottom: 20px;
+        }
+
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+        }
+
+        .bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .insight {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .insight strong {
+            color: #1d4ed8;
+        }
+
+        .history-table-box {
+            max-width: 1100px;
+            margin: 25px auto 0;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f8fafc;
+        }
+
+        select {
+            padding: 7px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+        }
+
+        .clear-btn {
+            margin-top: 15px;
+            padding: 10px 16px;
+            border: none;
+            background: #dc2626;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* WSD */
+
+        #wsd {
+            background: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer h3 {
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #d1d5db;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+
+            .cards,
+            .steps {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats,
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .cards,
+            .steps,
+            .stats,
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 6%;
+            }
+
+            .analyzer-box {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h2>SmartFix NLP 2.0</h2>
+
+    <div>
+
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#similarity">Similarity</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#wsd">WSD</a>
+
+    </div>
+
+</nav>
+
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+
+    <div class="hero-label">
+        ● AI-POWERED COMPLAINT MANAGEMENT
+    </div>
+
+    <h1>
+        Turn complaints into intelligent actions.
+    </h1>
+
+    <p>
+        SmartFix NLP analyzes complaints, classifies problems,
+        recommends solutions, detects priority and sentiment,
+        routes complaints to departments and finds similar complaints.
+    </p>
+
+    <a href="#analyzer" class="hero-btn">
+        Start Smart Analysis →
+    </a>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features">
+
+    <div class="section-title">
+
+        <h2>SmartFix Features</h2>
+
+        <p>
+            An intelligent NLP-powered complaint management system.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">🤖</div>
+            <h3>Complaint Analysis</h3>
+            <p>
+                Automatically identify the complaint category from natural language.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💡</div>
+            <h3>Solution Recommendation</h3>
+            <p>
+                Suggest a suitable action based on the detected problem.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🚨</div>
+            <h3>Priority Detection</h3>
+            <p>
+                Identify whether a complaint requires low, medium or high priority.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🏢</div>
+            <h3>Department Routing</h3>
+            <p>
+                Suggest the department responsible for handling the complaint.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">😊</div>
+            <h3>Sentiment Detection</h3>
+            <p>
+                Detect the general sentiment expressed in the complaint.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>Text Similarity</h3>
+            <p>
+                Find similar complaint text using TF-IDF and cosine similarity.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎫</div>
+            <h3>Ticket Generation</h3>
+            <p>
+                Generate a unique ticket ID for each analyzed complaint.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>Smart Dashboard</h3>
+            <p>
+                Track complaints, categories, priorities and status.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how-it-works">
+
+    <div class="section-title">
+
+        <h2>How SmartFix Works</h2>
+
+        <p>
+            From complaint text to an actionable result.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Enter Complaint</h3>
+            <p>
+                User enters a complaint in natural language.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>NLP Analysis</h3>
+            <p>
+                SmartFix processes the complaint text.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Smart Decision</h3>
+            <p>
+                Category, priority, sentiment and department are detected.
+            </p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Action</h3>
+            <p>
+                Solution, ticket and tracking information are displayed.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ANALYZER -->
+
+<section id="analyzer">
+
+    <div class="analyzer-box">
+
+        <h2>Smart Complaint Analyzer</h2>
+
+        <p>
+            Enter a complaint and let SmartFix generate a complete analysis.
+        </p>
+
+
+        <textarea
+            id="complaint"
+            placeholder="Example: The conveyor machine has completely stopped">
+        </textarea>
+
+
+        <div class="sample-buttons">
+
+            <strong>Try an example:</strong><br>
+
+            <button onclick="setComplaint('The conveyor machine has completely stopped')">
+                Machine Problem
+            </button>
+
+            <button onclick="setComplaint('The product has scratches and poor quality')">
+                Quality Problem
+            </button>
+
+            <button onclick="setComplaint('The production line is running late')">
+                Production Delay
+            </button>
+
+            <button onclick="setComplaint('We do not have enough raw material')">
+                Material Problem
+            </button>
+
+            <button onclick="setComplaint('This is an urgent emergency and the machine stopped')">
+                High Priority
+            </button>
+
+        </div>
+
+
+        <button class="btn" onclick="analyzeComplaint()">
+            Analyze Complaint
+        </button>
+
+
+        <div class="result" id="analysisResult"></div>
+
+    </div>
+
+</section>
+
+
+<!-- SIMILARITY -->
+
+<section id="similarity">
+
+    <div class="analyzer-box">
+
+        <h2>Real-Time Text Similarity</h2>
+
+        <p>
+            Compare a new complaint with previously stored complaint examples.
+        </p>
+
+
+        <textarea
+            id="similarityText"
+            placeholder="Example: My machine has stopped working">
+        </textarea>
+
+
+        <button class="btn" onclick="checkSimilarity()">
+            Find Similar Complaint
+        </button>
+
+
+        <div class="result" id="similarityResult"></div>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard">
+
+    <div class="section-title">
+
+        <h2>SmartFix Analytics Dashboard</h2>
+
+        <p>
+            Monitor complaint activity and automatically generated insights.
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <h3 id="totalComplaints">0</h3>
+            <p>Total Complaints</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="highComplaints">0</h3>
+            <p>High Priority</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="openComplaints">0</h3>
+            <p>Open</p>
+        </div>
+
+        <div class="stat">
+            <h3 id="resolvedComplaints">0</h3>
+            <p>Resolved</p>
+        </div>
+
+    </div>
+
+
+    <!-- ANALYTICS -->
+
+    <div class="dashboard-grid">
+
+        <div class="history-box">
+
+            <h3>
+                Category Analytics
+            </h3>
+
+            <div id="categoryAnalytics">
+
+            </div>
+
+        </div>
+
+
+        <div class="history-box">
+
+            <h3>
+                Smart Insights
+            </h3>
+
+            <div id="smartInsights">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HISTORY -->
+
+    <div class="history-table-box">
+
+        <h3>
+            Complaint History
+        </h3>
+
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Ticket</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Department</th>
+                    <th>Sentiment</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="historyTable">
+
+            </tbody>
+
+        </table>
+
+
+        <button
+            class="clear-btn"
+            onclick="clearHistory()">
+
+            Clear History
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- WSD -->
+
+<section id="wsd">
+
+    <div class="analyzer-box">
+
+        <h2>
+            Word Sense Disambiguation
+        </h2>
+
+        <p>
+            Understand the meaning of the word "bank" from context.
+        </p>
+
+
+        <textarea
+            id="wsdText"
+            placeholder="Example: The fisherman sat near the bank of the river">
+        </textarea>
+
+
+        <button
+            class="btn"
+            onclick="detectMeaning()">
+
+            Detect Meaning
+
+        </button>
+
+
+        <div
+            class="result"
+            id="wsdResult">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        SmartFix NLP 2.0
+    </h3>
+
+    <p>
+        AI-Powered Complaint Analysis and Solution Recommendation System
+    </p>
+
+    <p>
+        BE Mini Project • Artificial Intelligence and Data Science
+    </p>
+
+</footer>
+
+
+<script>
+
+
+/* =========================
+   SAFE HTML
+========================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =========================
+   SAMPLE COMPLAINT
+========================= */
+
+function setComplaint(text) {
+
+    document.getElementById("complaint").value = text;
+
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function getHistory() {
+
+    return JSON.parse(
+
+        localStorage.getItem(
+            "smartfix_history"
+        ) || "[]"
+
+    );
+
+}
+
+
+function saveHistory(item) {
+
+    const history = getHistory();
+
+    history.unshift(item);
+
+    localStorage.setItem(
+
+        "smartfix_history",
+
+        JSON.stringify(history)
+
+    );
+
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard() {
+
+    const history = getHistory();
+
+
+    /* BASIC STATS */
+
+    document.getElementById(
+        "totalComplaints"
+    ).textContent = history.length;
+
+
+    document.getElementById(
+        "highComplaints"
+    ).textContent =
+
+        history.filter(
+            x => x.priority === "HIGH"
+        ).length;
+
+
+    document.getElementById(
+        "openComplaints"
+    ).textContent =
+
+        history.filter(
+            x => x.status === "Open"
+        ).length;
+
+
+    document.getElementById(
+        "resolvedComplaints"
+    ).textContent =
+
+        history.filter(
+            x => x.status === "Resolved"
+        ).length;
+
+
+    /* CATEGORY ANALYTICS */
+
+    const categoryCounts = {};
+
+
+    history.forEach(item => {
+
+        categoryCounts[item.category] =
+
+            (categoryCounts[item.category] || 0) + 1;
+
+    });
+
+
+    const analytics =
+        document.getElementById(
+            "categoryAnalytics"
+        );
+
+
+    analytics.innerHTML = "";
+
+
+    if (history.length === 0) {
+
+        analytics.innerHTML = `
+
+            <p style="color:#6b7280">
+
+                No complaint analytics available yet.
+
+            </p>
+
+        `;
+
+    }
+
+    else {
+
+        Object.keys(categoryCounts)
+
+            .forEach(category => {
+
+                const count =
+                    categoryCounts[category];
+
+
+                const percentage =
+                    (count / history.length) * 100;
+
+
+                analytics.innerHTML += `
+
+                    <div class="analytics-item">
+
+                        <div class="analytics-header">
+
+                            <strong>
+
+                                ${escapeHTML(category)}
+
+                            </strong>
+
+                            <span>
+
+                                ${count}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="bar-bg">
+
+                            <div
+                                class="bar-fill"
+                                style="width:${percentage}%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+    }
+
+
+    /* SMART INSIGHTS */
+
+    const insights =
+        document.getElementById(
+            "smartInsights"
+        );
+
+
+    insights.innerHTML = "";
+
+
+    if (history.length === 0) {
+
+        insights.innerHTML = `
+
+            <div class="insight">
+
+                <strong>Insight:</strong>
+
+                Analyze some complaints to generate
+                SmartFix insights.
+
+            </div>
+
+        `;
+
+    }
+
+    else {
+
+        /* Most common category */
+
+        let mostCommonCategory = "";
+
+        let highestCount = 0;
+
+
+        Object.keys(categoryCounts)
+
+            .forEach(category => {
+
+                if (
+                    categoryCounts[category]
+                    > highestCount
+                ) {
+
+                    highestCount =
+                        categoryCounts[category];
+
+                    mostCommonCategory =
+                        category;
+
+                }
+
+            });
+
+
+        insights.innerHTML += `
+
+            <div class="insight">
+
+                <strong>Most Common Category:</strong>
+
+                ${escapeHTML(mostCommonCategory)}
+
+                (${highestCount} complaint${highestCount > 1 ? "s" : ""})
+
+            </div>
+
+        `;
+
+
+        /* High priority */
+
+        const highCount =
+            history.filter(
+                x => x.priority === "HIGH"
+            ).length;
+
+
+        insights.innerHTML += `
+
+            <div class="insight">
+
+                <strong>Priority Insight:</strong>
+
+                ${highCount} high-priority
+                complaint${highCount !== 1 ? "s" : ""} detected.
+
+            </div>
+
+        `;
+
+
+        /* Sentiment */
+
+        const negativeCount =
+            history.filter(
+                x => x.sentiment === "Negative"
+            ).length;
+
+
+        insights.innerHTML += `
+
+            <div class="insight">
+
+                <strong>Sentiment Insight:</strong>
+
+                ${negativeCount} complaint${negativeCount !== 1 ? "s" : ""}
+                currently have negative sentiment.
+
+            </div>
+
+        `;
+
+
+        /* Department */
+
+        const departmentCounts = {};
+
+
+        history.forEach(item => {
+
+            departmentCounts[item.department] =
+
+                (departmentCounts[item.department] || 0) + 1;
+
+        });
+
+
+        let mainDepartment = "";
+
+        let departmentMax = 0;
+
+
+        Object.keys(departmentCounts)
+
+            .forEach(department => {
+
+                if (
+                    departmentCounts[department]
+                    > departmentMax
+                ) {
+
+                    departmentMax =
+                        departmentCounts[department];
+
+                    mainDepartment =
+                        department;
+
+                }
+
+            });
+
+
+        insights.innerHTML += `
+
+            <div class="insight">
+
+                <strong>Department Insight:</strong>
+
+                ${escapeHTML(mainDepartment)}
+                has the highest complaint count.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* HISTORY TABLE */
+
+    const table =
+        document.getElementById(
+            "historyTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    if (history.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    No complaints yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+    else {
+
+        history.forEach(
+
+            (item, index) => {
+
+                let priorityClass = "low";
+
+
+                if (
+                    item.priority === "HIGH"
+                ) {
+
+                    priorityClass = "high";
+
+                }
+
+
+                if (
+                    item.priority === "MEDIUM"
+                ) {
+
+                    priorityClass = "medium";
+
+                }
+
+
+                table.innerHTML += `
+
+                    <tr>
+
+                        <td>
+
+                            ${escapeHTML(
+                                item.ticket_id
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                item.category
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="badge ${priorityClass}">
+
+                                ${escapeHTML(
+                                    item.priority
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                item.department
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                item.sentiment
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                onchange="changeStatus(
+                                    ${index},
+                                    this.value
+                                )">
+
+                                <option
+
+                                    ${
+                                        item.status ===
+                                        "Open"
+                                        ? "selected"
+                                        : ""
+                                    }
+
+                                >
+                                    Open
+                                </option>
+
+
+                                <option
+
+                                    ${
+                                        item.status ===
+                                        "In Progress"
+                                        ? "selected"
+                                        : ""
+                                    }
+
+                                >
+                                    In Progress
+                                </option>
+
+
+                                <option
+
+                                    ${
+                                        item.status ===
+                                        "Resolved"
+                                        ? "selected"
+                                        : ""
+                                    }
+
+                                >
+                                    Resolved
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        );
+
+    }
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function changeStatus(
+    index,
+    status
+) {
+
+    const history =
+        getHistory();
+
+
+    history[index].status =
+        status;
+
+
+    localStorage.setItem(
+
+        "smartfix_history",
+
+        JSON.stringify(history)
+
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   CLEAR HISTORY
+========================= */
+
+function clearHistory() {
+
+    localStorage.removeItem(
+        "smartfix_history"
+    );
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================
+   COMPLAINT ANALYZER
+========================= */
+
+async function analyzeComplaint() {
+
+    const text =
+        document.getElementById(
+            "complaint"
+        ).value.trim();
+
+
+    const result =
+        document.getElementById(
+            "analysisResult"
+        );
+
+
+    if (!text) {
+
+        result.style.display = "block";
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Please enter a complaint.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <p>
+
+            SmartFix is analyzing the complaint...
+
+        </p>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                "http://127.0.0.1:8000/api/analyze",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        text: text
+
+                    })
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend error"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (data.message) {
+
+            result.innerHTML = `
+
+                <p class="error">
+
+                    ${escapeHTML(
+                        data.message
+                    )}
+
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        let priorityClass =
+            "low";
+
+
+        if (
+            data.priority ===
+            "HIGH"
+        ) {
+
+            priorityClass =
+                "high";
+
+        }
+
+
+        if (
+            data.priority ===
+            "MEDIUM"
+        ) {
+
+            priorityClass =
+                "medium";
+
+        }
+
+
+        result.innerHTML = `
+
+            <h3>
+
+                SmartFix Analysis
+
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Ticket ID:
+                </strong>
+
+                ${escapeHTML(
+                    data.ticket_id
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Category:
+                </strong>
+
+                ${escapeHTML(
+                    data.category
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Department:
+                </strong>
+
+                ${escapeHTML(
+                    data.department
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Priority:
+                </strong>
+
+                <span
+                    class="badge ${priorityClass}">
+
+                    ${escapeHTML(
+                        data.priority
+                    )}
+
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Sentiment:
+                </strong>
+
+                ${escapeHTML(
+                    data.sentiment
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Confidence:
+                </strong>
+
+                <span class="confidence">
+
+                    ${data.confidence}%
+
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Recommended Solution:
+                </strong>
+
+                ${escapeHTML(
+                    data.solution
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Status:
+                </strong>
+
+                <span
+                    class="badge status-open">
+
+                    Open
+
+                </span>
+
+            </p>
+
+        `;
+
+
+        saveHistory({
+
+            ticket_id:
+                data.ticket_id,
+
+            complaint:
+                data.complaint,
+
+            category:
+                data.category,
+
+            department:
+                data.department,
+
+            priority:
+                data.priority,
+
+            sentiment:
+                data.sentiment,
+
+            confidence:
+                data.confidence,
+
+            solution:
+                data.solution,
+
+            status:
+                "Open",
+
+            created_at:
+                new Date().toISOString()
+
+        });
+
+
+        updateDashboard();
+
+    }
+
+    catch (error) {
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Backend is not working.
+
+                Please make sure FastAPI
+                is running.
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   TEXT SIMILARITY
+========================= */
+
+async function checkSimilarity() {
+
+    const text =
+        document.getElementById(
+            "similarityText"
+        ).value.trim();
+
+
+    const result =
+        document.getElementById(
+            "similarityResult"
+        );
+
+
+    if (!text) {
+
+        result.style.display =
+            "block";
+
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Please enter some text.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <p>
+
+            Comparing complaint text...
+
+        </p>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                "http://127.0.0.1:8000/api/similarity",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        text: text
+
+                    })
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend error"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        result.innerHTML = `
+
+            <h3>
+
+                Similarity Result
+
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Input:
+                </strong>
+
+                ${escapeHTML(
+                    data.input
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Most Similar Complaint:
+                </strong>
+
+                ${escapeHTML(
+                    data.similar_complaint
+                )}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Similarity Score:
+                </strong>
+
+                <span class="confidence">
+
+                    ${data.similarity}%
+
+                </span>
+
+            </p>
+
+        `;
+
+    }
+
+    catch (error) {
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Backend is not working.
+
+                Please make sure FastAPI
+                is running.
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   WSD
+========================= */
+
+async function detectMeaning() {
+
+    const text =
+        document.getElementById(
+            "wsdText"
+        ).value.trim();
+
+
+    const result =
+        document.getElementById(
+            "wsdResult"
+        );
+
+
+    if (!text) {
+
+        result.style.display =
+            "block";
+
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Please enter a sentence.
+
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    result.style.display =
+        "block";
+
+
+    result.innerHTML = `
+
+        <p>
+
+            Detecting meaning...
+
+        </p>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                "http://127.0.0.1:8000/api/wsd",
+
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        text: text
+
+                    })
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Backend error"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        result.innerHTML = `
+
+            <h3>
+                WSD Result
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Meaning:
+                </strong>
+
+                ${escapeHTML(
+                    data.meaning
+                )}
+
+            </p>
+
+        `;
+
+    }
+
+    catch (error) {
+
+        result.innerHTML = `
+
+            <p class="error">
+
+                Backend is not working.
+
+                Please make sure FastAPI
+                is running.
+
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   LOAD DASHBOARD
+========================= */
+
+updateDashboard();
+
+
+</script>
+
+
+</body>
+
+</html>

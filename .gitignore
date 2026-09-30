@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
+# Python cache
+.pytest_cache/
+
+# Local files
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Backup files
+*_backup.py
+index_backup.html
+
+# Generated files
+*.tmp
