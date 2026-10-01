@@ -27,3 +27,8 @@ index_backup.html
 
 # Generated files
 *.tmp
+
+backend/venv/
+__pycache__/
+*.pyc
+.env
