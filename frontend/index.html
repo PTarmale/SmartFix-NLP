@@ -526,6 +526,7 @@
                 flex-direction: column;
                 gap: 10px;
             }
+
         }
 
         @media (max-width: 600px) {
@@ -849,8 +850,6 @@
     </div>
 
 
-    <!-- STATS -->
-
     <div class="stats">
 
         <div class="stat">
@@ -876,45 +875,31 @@
     </div>
 
 
-    <!-- ANALYTICS -->
-
     <div class="dashboard-grid">
 
         <div class="history-box">
 
-            <h3>
-                Category Analytics
-            </h3>
+            <h3>Category Analytics</h3>
 
-            <div id="categoryAnalytics">
-
-            </div>
+            <div id="categoryAnalytics"></div>
 
         </div>
 
 
         <div class="history-box">
 
-            <h3>
-                Smart Insights
-            </h3>
+            <h3>Smart Insights</h3>
 
-            <div id="smartInsights">
-
-            </div>
+            <div id="smartInsights"></div>
 
         </div>
 
     </div>
 
 
-    <!-- HISTORY -->
-
     <div class="history-table-box">
 
-        <h3>
-            Complaint History
-        </h3>
+        <h3>Complaint History</h3>
 
         <br>
 
@@ -936,9 +921,7 @@
             </thead>
 
 
-            <tbody id="historyTable">
-
-            </tbody>
+            <tbody id="historyTable"></tbody>
 
         </table>
 
@@ -962,9 +945,7 @@
 
     <div class="analyzer-box">
 
-        <h2>
-            Word Sense Disambiguation
-        </h2>
+        <h2>Word Sense Disambiguation</h2>
 
         <p>
             Understand the meaning of the word "bank" from context.
@@ -1001,9 +982,7 @@
 
 <footer>
 
-    <h3>
-        SmartFix NLP 2.0
-    </h3>
+    <h3>SmartFix NLP 2.0</h3>
 
     <p>
         AI-Powered Complaint Analysis and Solution Recommendation System
@@ -1019,14 +998,21 @@
 <script>
 
 
-/* =========================
+/* =====================================
+   IMPORTANT: PUT YOUR RENDER URL HERE
+===================================== */
+
+const API_BASE =
+    "https://YOUR-RENDER-BACKEND.onrender.com";
+
+
+/* =====================================
    SAFE HTML
-========================= */
+===================================== */
 
 function escapeHTML(text) {
 
     return String(text)
-
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -1036,9 +1022,9 @@ function escapeHTML(text) {
 }
 
 
-/* =========================
+/* =====================================
    SAMPLE COMPLAINT
-========================= */
+===================================== */
 
 function setComplaint(text) {
 
@@ -1047,18 +1033,14 @@ function setComplaint(text) {
 }
 
 
-/* =========================
+/* =====================================
    HISTORY
-========================= */
+===================================== */
 
 function getHistory() {
 
     return JSON.parse(
-
-        localStorage.getItem(
-            "smartfix_history"
-        ) || "[]"
-
+        localStorage.getItem("smartfix_history") || "[]"
     );
 
 }
@@ -1071,26 +1053,21 @@ function saveHistory(item) {
     history.unshift(item);
 
     localStorage.setItem(
-
         "smartfix_history",
-
         JSON.stringify(history)
-
     );
 
 }
 
 
-/* =========================
+/* =====================================
    DASHBOARD
-========================= */
+===================================== */
 
 function updateDashboard() {
 
     const history = getHistory();
 
-
-    /* BASIC STATS */
 
     document.getElementById(
         "totalComplaints"
@@ -1132,7 +1109,6 @@ function updateDashboard() {
     history.forEach(item => {
 
         categoryCounts[item.category] =
-
             (categoryCounts[item.category] || 0) + 1;
 
     });
@@ -1152,24 +1128,18 @@ function updateDashboard() {
         analytics.innerHTML = `
 
             <p style="color:#6b7280">
-
                 No complaint analytics available yet.
-
             </p>
 
         `;
 
-    }
-
-    else {
+    } else {
 
         Object.keys(categoryCounts)
-
             .forEach(category => {
 
                 const count =
                     categoryCounts[category];
-
 
                 const percentage =
                     (count / history.length) * 100;
@@ -1182,15 +1152,11 @@ function updateDashboard() {
                         <div class="analytics-header">
 
                             <strong>
-
                                 ${escapeHTML(category)}
-
                             </strong>
 
                             <span>
-
                                 ${count}
-
                             </span>
 
                         </div>
@@ -1201,7 +1167,6 @@ function updateDashboard() {
                             <div
                                 class="bar-fill"
                                 style="width:${percentage}%">
-
                             </div>
 
                         </div>
@@ -1241,24 +1206,17 @@ function updateDashboard() {
 
         `;
 
-    }
-
-    else {
-
-        /* Most common category */
+    } else {
 
         let mostCommonCategory = "";
-
         let highestCount = 0;
 
 
         Object.keys(categoryCounts)
-
             .forEach(category => {
 
                 if (
-                    categoryCounts[category]
-                    > highestCount
+                    categoryCounts[category] > highestCount
                 ) {
 
                     highestCount =
@@ -1287,8 +1245,6 @@ function updateDashboard() {
         `;
 
 
-        /* High priority */
-
         const highCount =
             history.filter(
                 x => x.priority === "HIGH"
@@ -1308,8 +1264,6 @@ function updateDashboard() {
 
         `;
 
-
-        /* Sentiment */
 
         const negativeCount =
             history.filter(
@@ -1331,32 +1285,26 @@ function updateDashboard() {
         `;
 
 
-        /* Department */
-
         const departmentCounts = {};
 
 
         history.forEach(item => {
 
             departmentCounts[item.department] =
-
                 (departmentCounts[item.department] || 0) + 1;
 
         });
 
 
         let mainDepartment = "";
-
         let departmentMax = 0;
 
 
         Object.keys(departmentCounts)
-
             .forEach(department => {
 
                 if (
-                    departmentCounts[department]
-                    > departmentMax
+                    departmentCounts[department] > departmentMax
                 ) {
 
                     departmentMax =
@@ -1404,198 +1352,126 @@ function updateDashboard() {
             <tr>
 
                 <td colspan="6">
-
                     No complaints yet.
-
                 </td>
 
             </tr>
 
         `;
 
-    }
+    } else {
 
-    else {
+        history.forEach((item, index) => {
 
-        history.forEach(
-
-            (item, index) => {
-
-                let priorityClass = "low";
+            let priorityClass = "low";
 
 
-                if (
-                    item.priority === "HIGH"
-                ) {
-
-                    priorityClass = "high";
-
-                }
-
-
-                if (
-                    item.priority === "MEDIUM"
-                ) {
-
-                    priorityClass = "medium";
-
-                }
-
-
-                table.innerHTML += `
-
-                    <tr>
-
-                        <td>
-
-                            ${escapeHTML(
-                                item.ticket_id
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHTML(
-                                item.category
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <span
-                                class="badge ${priorityClass}">
-
-                                ${escapeHTML(
-                                    item.priority
-                                )}
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHTML(
-                                item.department
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            ${escapeHTML(
-                                item.sentiment
-                            )}
-
-                        </td>
-
-
-                        <td>
-
-                            <select
-                                onchange="changeStatus(
-                                    ${index},
-                                    this.value
-                                )">
-
-                                <option
-
-                                    ${
-                                        item.status ===
-                                        "Open"
-                                        ? "selected"
-                                        : ""
-                                    }
-
-                                >
-                                    Open
-                                </option>
-
-
-                                <option
-
-                                    ${
-                                        item.status ===
-                                        "In Progress"
-                                        ? "selected"
-                                        : ""
-                                    }
-
-                                >
-                                    In Progress
-                                </option>
-
-
-                                <option
-
-                                    ${
-                                        item.status ===
-                                        "Resolved"
-                                        ? "selected"
-                                        : ""
-                                    }
-
-                                >
-                                    Resolved
-                                </option>
-
-                            </select>
-
-                        </td>
-
-                    </tr>
-
-                `;
-
+            if (item.priority === "HIGH") {
+                priorityClass = "high";
             }
 
-        );
+            if (item.priority === "MEDIUM") {
+                priorityClass = "medium";
+            }
+
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(item.ticket_id)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.category)}
+                    </td>
+
+                    <td>
+
+                        <span class="badge ${priorityClass}">
+
+                            ${escapeHTML(item.priority)}
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.department)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(item.sentiment)}
+                    </td>
+
+                    <td>
+
+                        <select
+                            onchange="changeStatus(
+                                ${index},
+                                this.value
+                            )">
+
+                            <option
+                                ${item.status === "Open" ? "selected" : ""}>
+
+                                Open
+
+                            </option>
+
+                            <option
+                                ${item.status === "In Progress" ? "selected" : ""}>
+
+                                In Progress
+
+                            </option>
+
+                            <option
+                                ${item.status === "Resolved" ? "selected" : ""}>
+
+                                Resolved
+
+                            </option>
+
+                        </select>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
 
     }
 
 }
 
 
-/* =========================
+/* =====================================
    STATUS
-========================= */
+===================================== */
 
-function changeStatus(
-    index,
-    status
-) {
+function changeStatus(index, status) {
 
-    const history =
-        getHistory();
+    const history = getHistory();
 
-
-    history[index].status =
-        status;
-
+    history[index].status = status;
 
     localStorage.setItem(
-
         "smartfix_history",
-
         JSON.stringify(history)
-
     );
-
 
     updateDashboard();
 
 }
 
 
-/* =========================
+/* =====================================
    CLEAR HISTORY
-========================= */
+===================================== */
 
 function clearHistory() {
 
@@ -1603,15 +1479,14 @@ function clearHistory() {
         "smartfix_history"
     );
 
-
     updateDashboard();
 
 }
 
 
-/* =========================
+/* =====================================
    COMPLAINT ANALYZER
-========================= */
+===================================== */
 
 async function analyzeComplaint() {
 
@@ -1646,16 +1521,13 @@ async function analyzeComplaint() {
     }
 
 
-    result.style.display =
-        "block";
+    result.style.display = "block";
 
 
     result.innerHTML = `
 
         <p>
-
             SmartFix is analyzing the complaint...
-
         </p>
 
     `;
@@ -1666,7 +1538,7 @@ async function analyzeComplaint() {
         const response =
             await fetch(
 
-                "http://127.0.0.1:8000/api/analyze",
+                `${API_BASE}/api/analyze`,
 
                 {
 
@@ -1709,9 +1581,7 @@ async function analyzeComplaint() {
 
                 <p class="error">
 
-                    ${escapeHTML(
-                        data.message
-                    )}
+                    ${escapeHTML(data.message)}
 
                 </p>
 
@@ -1722,40 +1592,23 @@ async function analyzeComplaint() {
         }
 
 
-        let priorityClass =
-            "low";
+        let priorityClass = "low";
 
 
-        if (
-            data.priority ===
-            "HIGH"
-        ) {
-
-            priorityClass =
-                "high";
-
+        if (data.priority === "HIGH") {
+            priorityClass = "high";
         }
 
-
-        if (
-            data.priority ===
-            "MEDIUM"
-        ) {
-
-            priorityClass =
-                "medium";
-
+        if (data.priority === "MEDIUM") {
+            priorityClass = "medium";
         }
 
 
         result.innerHTML = `
 
             <h3>
-
                 SmartFix Analysis
-
             </h3>
-
 
             <p>
 
@@ -1763,9 +1616,7 @@ async function analyzeComplaint() {
                     Ticket ID:
                 </strong>
 
-                ${escapeHTML(
-                    data.ticket_id
-                )}
+                ${escapeHTML(data.ticket_id)}
 
             </p>
 
@@ -1776,9 +1627,7 @@ async function analyzeComplaint() {
                     Category:
                 </strong>
 
-                ${escapeHTML(
-                    data.category
-                )}
+                ${escapeHTML(data.category)}
 
             </p>
 
@@ -1789,9 +1638,7 @@ async function analyzeComplaint() {
                     Department:
                 </strong>
 
-                ${escapeHTML(
-                    data.department
-                )}
+                ${escapeHTML(data.department)}
 
             </p>
 
@@ -1802,12 +1649,9 @@ async function analyzeComplaint() {
                     Priority:
                 </strong>
 
-                <span
-                    class="badge ${priorityClass}">
+                <span class="badge ${priorityClass}">
 
-                    ${escapeHTML(
-                        data.priority
-                    )}
+                    ${escapeHTML(data.priority)}
 
                 </span>
 
@@ -1820,9 +1664,7 @@ async function analyzeComplaint() {
                     Sentiment:
                 </strong>
 
-                ${escapeHTML(
-                    data.sentiment
-                )}
+                ${escapeHTML(data.sentiment)}
 
             </p>
 
@@ -1848,9 +1690,7 @@ async function analyzeComplaint() {
                     Recommended Solution:
                 </strong>
 
-                ${escapeHTML(
-                    data.solution
-                )}
+                ${escapeHTML(data.solution)}
 
             </p>
 
@@ -1861,8 +1701,7 @@ async function analyzeComplaint() {
                     Status:
                 </strong>
 
-                <span
-                    class="badge status-open">
+                <span class="badge status-open">
 
                     Open
 
@@ -1918,10 +1757,9 @@ async function analyzeComplaint() {
 
             <p class="error">
 
-                Backend is not working.
+                Unable to connect to SmartFix backend.
 
-                Please make sure FastAPI
-                is running.
+                Check your Render service URL.
 
             </p>
 
@@ -1932,9 +1770,9 @@ async function analyzeComplaint() {
 }
 
 
-/* =========================
+/* =====================================
    TEXT SIMILARITY
-========================= */
+===================================== */
 
 async function checkSimilarity() {
 
@@ -1952,9 +1790,7 @@ async function checkSimilarity() {
 
     if (!text) {
 
-        result.style.display =
-            "block";
-
+        result.style.display = "block";
 
         result.innerHTML = `
 
@@ -1971,16 +1807,13 @@ async function checkSimilarity() {
     }
 
 
-    result.style.display =
-        "block";
+    result.style.display = "block";
 
 
     result.innerHTML = `
 
         <p>
-
             Comparing complaint text...
-
         </p>
 
     `;
@@ -1991,7 +1824,7 @@ async function checkSimilarity() {
         const response =
             await fetch(
 
-                "http://127.0.0.1:8000/api/similarity",
+                `${API_BASE}/api/similarity`,
 
                 {
 
@@ -2031,9 +1864,7 @@ async function checkSimilarity() {
         result.innerHTML = `
 
             <h3>
-
                 Similarity Result
-
             </h3>
 
 
@@ -2043,9 +1874,7 @@ async function checkSimilarity() {
                     Input:
                 </strong>
 
-                ${escapeHTML(
-                    data.input
-                )}
+                ${escapeHTML(data.input)}
 
             </p>
 
@@ -2087,10 +1916,9 @@ async function checkSimilarity() {
 
             <p class="error">
 
-                Backend is not working.
+                Unable to connect to SmartFix backend.
 
-                Please make sure FastAPI
-                is running.
+                Check your Render service URL.
 
             </p>
 
@@ -2101,9 +1929,9 @@ async function checkSimilarity() {
 }
 
 
-/* =========================
+/* =====================================
    WSD
-========================= */
+===================================== */
 
 async function detectMeaning() {
 
@@ -2121,9 +1949,7 @@ async function detectMeaning() {
 
     if (!text) {
 
-        result.style.display =
-            "block";
-
+        result.style.display = "block";
 
         result.innerHTML = `
 
@@ -2140,16 +1966,13 @@ async function detectMeaning() {
     }
 
 
-    result.style.display =
-        "block";
+    result.style.display = "block";
 
 
     result.innerHTML = `
 
         <p>
-
             Detecting meaning...
-
         </p>
 
     `;
@@ -2160,7 +1983,7 @@ async function detectMeaning() {
         const response =
             await fetch(
 
-                "http://127.0.0.1:8000/api/wsd",
+                `${API_BASE}/api/wsd`,
 
                 {
 
@@ -2210,9 +2033,7 @@ async function detectMeaning() {
                     Meaning:
                 </strong>
 
-                ${escapeHTML(
-                    data.meaning
-                )}
+                ${escapeHTML(data.meaning)}
 
             </p>
 
@@ -2226,10 +2047,9 @@ async function detectMeaning() {
 
             <p class="error">
 
-                Backend is not working.
+                Unable to connect to SmartFix backend.
 
-                Please make sure FastAPI
-                is running.
+                Check your Render service URL.
 
             </p>
 
@@ -2240,9 +2060,9 @@ async function detectMeaning() {
 }
 
 
-/* =========================
-   LOAD DASHBOARD
-========================= */
+/* =====================================
+   INITIAL DASHBOARD
+===================================== */
 
 updateDashboard();
 
